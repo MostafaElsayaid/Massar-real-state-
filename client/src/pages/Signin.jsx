@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link ,useNavigate} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import {signInStart, signInSuccess, signInFailure} from '../redux/user/userSlice.js'
+import OAuth from '../components/OAuth.jsx';
 
 
 export default function Signin() {
@@ -52,7 +53,8 @@ export default function Signin() {
           <input type='password' placeholder='الرقم السرى' 
           className=' border p-3 text-right rounded-lg' id='password'onChange={handlechange}/>
           <button disabled={loading}  className='bg-[#bb9652] text-black hover:bg-black hover:text-white
-               rounded-lg p-2 text-nowrap font-sans font-bold disabled:opacity-80 uppercase text-2xl'>{loading ? '... تحميل': 'تسجيل الدخول'}</button>
+              rounded-lg p-2 text-nowrap font-sans font-bold disabled:opacity-80 uppercase text-2xl'>{loading ? '... تحميل': 'تسجيل الدخول'}</button>
+        <OAuth/>
         </form>
         <div className=''>
           <p className='text-right'>
