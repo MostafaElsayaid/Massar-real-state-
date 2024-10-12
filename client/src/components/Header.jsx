@@ -3,14 +3,18 @@ import {FaSearch} from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import  { useEffect, useState } from 'react'
 import image from '../assets/LOGO.jpeg'
+import {  useSelector } from 'react-redux'
 export default function Header() {
+  const {currentUser} = useSelector(state => state.user)
     const [isClick, setisClick] = useState(false);
   const toggleNavbar = () => {
     setisClick(!isClick)
   }
     
   return (
+    
     <header className=' shadow-md bg-[#100604]'>
+      
         <div className='flex justify-between items-center max-w-8xl mx-auto p-2'>
         <div className='md:hidden flex items-center'>
               <button className='inline-flex items-center justify-center p-2 rounded-md text-white
@@ -44,7 +48,7 @@ export default function Header() {
                 )}
               </button>
             </div>
-            
+           
            
          <form className='bg-slate-100 p-3  rounded-lg flex items-center'> 
             <input type='text' placeholder='            ...... ابحث عن مدينة او محافظة' className='bg-transparent focus:outline-none w-24 sm:w-64 ' />
@@ -52,9 +56,17 @@ export default function Header() {
          </form>
          <ul className=' gap-4 text-white hidden md:block  justify-center items-center'>
             <div className='flex gap-10'>
-            <Link to='/sign-in'>
-          <li className='bg-[#bb9652] text-black hover:bg-black hover:text-white
-               rounded-lg p-2 text-nowrap font-sans font-bold   text-2xl '>تسجيل الدخول</li>
+            <Link to='/profile'>
+          {currentUser? (
+            <img className='rounded-full object-cover' src={currentUser.avatar} width={50} height={50} alt='profile'/>
+          ):(
+             <li className='bg-[#bb9652] text-white hover:bg-white hover:text-black
+             rounded-lg p-2 text-nowrap font-sans font-bold   text-2xl '>تسجيل الدخول</li>
+          )}
+           
+
+
+
           </Link>
           <Link to='/about'>
            <li className=' text-white hover:bg-[#bb9652] hover:text-black
@@ -92,16 +104,21 @@ export default function Header() {
             <Link to='/'>  <li href='' className='text-white hover:bg-[#bb9652] block hover:text-black rounded-lg p-2 text-nowrap font-sans font-bold   text-2xl '> للإيجار</li></Link> 
              <Link to='/about'> <li href='' className='text-white hover:bg-[#bb9652] block hover:text-black rounded-lg p-2 text-nowrap font-sans font-bold   text-2xl '> تواصل معنا</li>
 </Link> 
-<Link to='/sign-in'>
-          <li className='bg-[#bb9652] text-white hover:bg-white hover:text-black
-               rounded-lg p-2 text-nowrap font-sans font-bold   text-2xl '>تسجيل الدخول</li>
-          </Link>
+         <Link to='/profile'>
+          {currentUser? (
+            <img src={currentUser.avatar} width={50} height={50} alt='profile'/>
+          ):(
+             <li className='bg-[#bb9652] text-white hover:bg-white hover:text-black
+             rounded-lg p-2 text-nowrap font-sans font-bold   text-2xl '>تسجيل الدخول</li>
+          )}
+           
 
-            </ul>
+
+
+          </Link>
+            </ul>           
           </div>
-        )}
-       
-      
+        )}     
     </header>
   )
 }
