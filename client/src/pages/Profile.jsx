@@ -45,7 +45,7 @@ export default function Profile() {
   }
   return (
     <div className='p-3 max-w-lg mx-auto'>
-    <h1 className='text-3xl font-semibold text-center my-7'>الصفحة الشخصية</h1>
+    <h1 className='text-3xl font-semibold text-center my-7'>الملف الشخصى</h1>
     <form className='flex flex-col gap-4'>
       <input onChange={(e)=> setFile(e.target.files[0])} type='file' ref={fileRef} hidden accept='image/*'/>
       <img
@@ -76,7 +76,7 @@ export default function Profile() {
         
        </input>
        <button className='bg-[#bb9652] text-black font-bold rounded-lg p-3 uppercase 
-       hover:opacity-85 disabled:opacity-75'>تحديث الصفحة الشخصيه</button>
+       hover:opacity-85 disabled:opacity-75'>تحديث الملف الشخصى</button>
     </form>
     <div className='flex justify-between mt-5'>
       <span className='text-red-700 cursor-pointer'>مسح الحساب</span>
