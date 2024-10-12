@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import {  useSelector } from 'react-redux'
+import {  useDispatch, useSelector } from 'react-redux'
 import { useRef } from 'react'
 import {getDownloadURL, getStorage, ref, uploadBytesResumable} from 'firebase/storage'
 import { app } from '../firebase'
+import { updateUserStart, updateUserFailure, updateUserSuccess } from '../redux/user/userSlice.js'
 export default function Profile() {
   const fileRef = useRef(null)
-  const {currentUser} = useSelector((state)=> state.user)
+  const {currentUser, loading, error} = useSelector((state)=> state.user)
   const [file, setFile] = useState(undefined)
   const [filePerc, setFilePerc] = useState(0)
   const [fileUploadError, setFileUploadError] = useState(false)
   const [formData, setFormData] = useState({})
+  const dispatch = useDispatch()
   
   // firebase storage 
   // allow read;
@@ -17,6 +19,12 @@ export default function Profile() {
   //     request.resource.size < 2 * 1024 * 1024 &&
   //     request.resource.contentType.matches('image/.*')
   useEffect(()=>{
+    try {
+      
+      
+    } catch (error) {
+      
+    }
     if(file){
       handleFileUpload(file);
     }
@@ -43,10 +51,38 @@ export default function Profile() {
     }
     )
   }
+  const handleChange = (e)=>{
+    setFormData({...formData, [e.target.id] : e.target.value})
+    console.log(e.target.value)
+  };
+  const handleSubmit =  async (e)=>{
+    e.preventDefault();
+    try {
+        dispatch(updateUserStart());
+        
+        const res = await fetch(`/api/user/update/${currentUser._id}`,
+        {
+            method:'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(formData),
+        })
+        const data = await res.json();
+        if(data.success === false){
+            dispatch(updateUserFailure(data.message))
+            return;
+        }
+        dispatch(updateUserSuccess(data));
+        
+    } catch (error) {
+      dispatch(updateUserFailure(error.message))
+    }
+  }
   return (
     <div className='p-3 max-w-lg mx-auto'>
     <h1 className='text-3xl font-semibold text-center my-7'>الملف الشخصى</h1>
-    <form className='flex flex-col gap-4'>
+    <form 
+    onSubmit={handleSubmit} 
+    className='flex flex-col gap-4'>
       <input onChange={(e)=> setFile(e.target.files[0])} type='file' ref={fileRef} hidden accept='image/*'/>
       <img
        onClick={()=>fileRef.current.click()}
@@ -66,22 +102,47 @@ export default function Profile() {
           ''
         )}
        </p>
-       <input type='text' placeholder='اسم المستخدم ' id='username' className='border text-right p-3 rounded-lg'>
+       <input
+          type='text'
+          placeholder='اسم المستخدم '
+          defaultValue={currentUser.username}
+          id='username' 
+          className='border text-right p-3 rounded-lg'
+          onChange={handleChange}
+          >
         
        </input>
-       <input type='email'  placeholder='البريد الالكترونى  ' id='email' className='border p-3 text-right rounded-lg'>
+       <input 
+        type='email'
+        placeholder='البريد الالكترونى  '
+        defaultValue={currentUser.email}
+        id='email'
+        className='border p-3 text-right rounded-lg'
+        onChange={handleChange}
+        >
         
        </input>
-       <input type='password' placeholder='كلمة المرور  ' id='password' className='border text-right p-3 rounded-lg'>
+       <input
+        type='password'
+        placeholder='كلمة المرور  '
+        id='password'
+        className='border text-right p-3 rounded-lg'
+        onChange={handleChange}
+        
+        >
         
        </input>
-       <button className='bg-[#bb9652] text-black font-bold rounded-lg p-3 uppercase 
-       hover:opacity-85 disabled:opacity-75'>تحديث الملف الشخصى</button>
+       <button disabled={loading} className='bg-[#bb9652] text-black font-bold rounded-lg p-3 uppercase 
+       hover:opacity-85 disabled:opacity-75'>
+        {loading ?  ' انتظار التحديث' : 'تحديث البيانات'}
+
+       </button>
     </form>
     <div className='flex justify-between mt-5'>
       <span className='text-red-700 cursor-pointer'>مسح الحساب</span>
       <span className='text-red-700 cursor-pointer'>تسجيل الخروج</span>
     </div>
+    
     </div>
   )
 }

@@ -13,7 +13,7 @@ export default function Header() {
     
   return (
     
-    <header className=' shadow-md bg-[#100604]'>
+    <header className=' shadow-md bg-[#1f100e]'>
       
         <div className='flex justify-between items-center max-w-8xl mx-auto p-2'>
         <div className='md:hidden flex items-center'>
@@ -50,15 +50,16 @@ export default function Header() {
             </div>
            
            
-         <form className='bg-slate-100 p-3  rounded-lg flex items-center'> 
-            <input type='text' placeholder='            ...... ابحث عن مدينة او محافظة' className='bg-transparent focus:outline-none w-24 sm:w-64 ' />
+         <form className='bg-slate-100 p-3 md:ml-16 rounded-lg flex items-center'> 
+            <input type='text' placeholder='      ...... ابحث عن مدينة او محافظة' className='bg-transparent focus:outline-none w-24 md:w-64 md:ml-' />
             <FaSearch className='text-slate-500'/>
          </form>
          <ul className=' gap-4 text-white hidden md:block  justify-center items-center'>
             <div className='flex gap-10'>
             <Link to='/profile'>
           {currentUser? (
-            <img className='rounded-full object-cover' src={currentUser.avatar} width={50} height={50} alt='profile'/>
+            <img className='rounded-full  object-cover cursor-pointer
+            self-center m-2' src={currentUser.avatar} width={50} height={50} alt='profile'/>
           ):(
              <li className='bg-[#bb9652] text-white hover:bg-white hover:text-black
              rounded-lg p-2 text-nowrap font-sans font-bold   text-2xl '>تسجيل الدخول</li>
@@ -68,9 +69,10 @@ export default function Header() {
 
 
           </Link>
+          <div className='flex p-4 m-auto mx-auto gap-6 '>
           <Link to='/about'>
-           <li className=' text-white hover:bg-[#bb9652] hover:text-black
-               rounded-lg p-2 text-nowrap font-sans font-bold   text-2xl '>من نحن؟</li>
+           <li className=' text-white hover:bg-[#bb9652]  hover:text-black
+               rounded-lg p-2 text-nowrap font-sans font-bold   text-2xl '>تواصل معنا</li>
            </Link>
            <Link to='/'>
            <li className='text-white hover:bg-[#bb9652] hover:text-black
@@ -80,6 +82,7 @@ export default function Header() {
            <li className='text-white hover:bg-[#bb9652] hover:text-black
                rounded-lg p-2 text-nowrap font-sans font-bold   text-2xl '>للبيع</li>
            </Link>
+           </div>
             </div>
         
           
@@ -90,23 +93,20 @@ export default function Header() {
          <Link to='/' className='flex text-white'> 
             
             <div className='pt-4'>
-                  <a className='text-nowrap font-sans font-bold  mr-4 text-4xl'>مســــــار</a>
-                  <h6>للتسويق العقارى</h6>
+                  <a className='text-nowrap font-sans font-bold mb-10  text-4xl'>مســــــار</a>
+                  <h6 className='mb-6'>للتسويق العقارى</h6>
                 </div>
-                <img src={image} width={100} height={100} alt='logo' className='rounded-xl lg:mr-20 m-1 p-1  '/>
+                <img src={image} width={100} height={60} alt='logo' className='rounded-xl lg:mr-20 m-1 p-1  '/>
             </Link>
             
         </div>
         {isClick && (
           <div className='md:hidden '>
-            <ul className='px-2 pt-2 pb-3 space-y-1 sm:px-3'>
-             <Link to='/'><li href='' className='text-white hover:bg-[#bb9652] block hover:text-black rounded-lg p-2 text-nowrap font-sans font-bold   text-2xl '> للبيع</li> </Link> 
-            <Link to='/'>  <li href='' className='text-white hover:bg-[#bb9652] block hover:text-black rounded-lg p-2 text-nowrap font-sans font-bold   text-2xl '> للإيجار</li></Link> 
-             <Link to='/about'> <li href='' className='text-white hover:bg-[#bb9652] block hover:text-black rounded-lg p-2 text-nowrap font-sans font-bold   text-2xl '> تواصل معنا</li>
-</Link> 
-         <Link to='/profile'>
+            <ul className='px-2 pt-2 pb-3 space-y-1  sm:px-3'>
+            <Link to='/profile'>
           {currentUser? (
-            <img src={currentUser.avatar} width={50} height={50} alt='profile'/>
+            <img  className='rounded-full  object-cover cursor-pointer
+            self-center m-2' src={currentUser.avatar} width={50} height={50} alt='profile'/>
           ):(
              <li className='bg-[#bb9652] text-white hover:bg-white hover:text-black
              rounded-lg p-2 text-nowrap font-sans font-bold   text-2xl '>تسجيل الدخول</li>
@@ -116,6 +116,11 @@ export default function Header() {
 
 
           </Link>
+             <Link to='/'><li href='' className='text-white hover:bg-[#bb9652] block hover:text-black rounded-lg p-2 text-nowrap font-sans font-bold   text-2xl '> للبيع</li> </Link> 
+            <Link to='/'>  <li href='' className='text-white hover:bg-[#bb9652] block hover:text-black rounded-lg p-2 text-nowrap font-sans font-bold   text-2xl '> للإيجار</li></Link> 
+             <Link to='/about'> <li href='' className='text-white hover:bg-[#bb9652] block hover:text-black rounded-lg p-2 text-nowrap font-sans font-bold   text-2xl '> تواصل معنا</li>
+</Link> 
+         
             </ul>           
           </div>
         )}     
