@@ -10,6 +10,7 @@ export default function Header() {
   const toggleNavbar = () => {
     setisClick(!isClick)
   }
+  
     
   return (
     
@@ -51,7 +52,7 @@ export default function Header() {
            
            
          <form className='bg-slate-100 p-3 md:ml-16 rounded-lg flex items-center'> 
-            <input type='text' placeholder='      ...... ابحث عن مدينة او محافظة' className='bg-transparent focus:outline-none w-24 md:w-64 md:ml-' />
+            <input type='text' placeholder='      ...... ابحث عن مدينة او محافظة' className='bg-transparent focus:outline-none w-20 md:w-64 ' />
             <FaSearch className='text-slate-500'/>
          </form>
          <ul className=' gap-4 text-white hidden md:block  justify-center items-center'>
@@ -62,7 +63,7 @@ export default function Header() {
             self-center m-2' src={currentUser.avatar} width={50} height={50} alt='profile'/>
           ):(
              <li className='bg-[#bb9652] text-white hover:bg-white hover:text-black
-             rounded-lg p-2 text-nowrap font-sans font-bold   text-2xl '>تسجيل الدخول</li>
+             rounded-lg p-2 text-nowrap font-sans font-bold  mt-4 text-2xl '>تسجيل الدخول</li>
           )}
            
 
@@ -108,9 +109,10 @@ export default function Header() {
             <img  className='rounded-full  object-cover cursor-pointer
             self-center m-2' src={currentUser.avatar} width={50} height={50} alt='profile'/>
           ):(
-             <li className='bg-[#bb9652] text-white hover:bg-white hover:text-black
+             <li className='  text-white hover:bg-[#bb9652] hover:text-black
              rounded-lg p-2 text-nowrap font-sans font-bold   text-2xl '>تسجيل الدخول</li>
           )}
+
            
 
 
@@ -124,6 +126,8 @@ export default function Header() {
             </ul>           
           </div>
         )}     
+        
     </header>
+    
   )
 }
