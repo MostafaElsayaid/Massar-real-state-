@@ -70,7 +70,6 @@ export default function Header() {
 
 
           </Link>
-          <div className='flex p-4 m-auto mx-auto gap-6 '>
           <Link to='/about'>
            <li className=' text-white hover:bg-[#bb9652]  hover:text-black
                rounded-lg p-2 text-nowrap font-sans font-bold   text-2xl '>تواصل معنا</li>
@@ -84,7 +83,6 @@ export default function Header() {
                rounded-lg p-2 text-nowrap font-sans font-bold   text-2xl '>للبيع</li>
            </Link>
            </div>
-            </div>
         
           
           
