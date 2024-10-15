@@ -14,6 +14,7 @@ import { updateUserStart,
     signOutUserSuccess,
    
    } from '../redux/user/userSlice.js'
+   import { Link } from 'react-router-dom'
 export default function Profile() {
   const fileRef = useRef(null)
   const {currentUser, loading, error} = useSelector((state)=> state.user)
@@ -117,6 +118,7 @@ export default function Profile() {
         dispatch(signOutUserFailure(error.message));
       }
   }
+  
   return (
     <div className='p-3 max-w-lg mx-auto'>
     <h1 className='text-3xl font-semibold text-center my-7'>الملف الشخصى</h1>
@@ -177,6 +179,12 @@ export default function Profile() {
         {loading ?  ' انتظار التحديث' : 'تحديث البيانات'}
 
        </button>
+       <Link className='flex flex-col gap-4' to={"/create-listing"}>
+        {currentUser.role === 'admin' ?(
+          <button className='bg-green-700 p-3 rounded-lg text-center text-white  '>إنشاء عقار جديد</button>
+        ) : ('')
+        }
+       </Link>
     </form>
     <div className='flex justify-between mt-5'>
       <span onClick={handleDeleteUser} className='text-red-700 cursor-pointer'>مسح الحساب</span>

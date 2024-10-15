@@ -59,11 +59,11 @@ export default function Header() {
             <div className='flex gap-10'>
             <Link to='/profile'>
           {currentUser? (
-            <img className='rounded-full  object-cover cursor-pointer
+            <img className='rounded-full h-12 w-12 object-cover cursor-pointer
             self-center m-2' src={currentUser.avatar} width={50} height={50} alt='profile'/>
           ):(
              <li className='bg-[#bb9652] text-white hover:bg-white hover:text-black
-             rounded-lg p-2 text-nowrap font-sans font-bold  mt-4 text-2xl '>تسجيل الدخول</li>
+             rounded-lg p-2 text-nowrap font-sans font-bold   text-2xl '>تسجيل الدخول</li>
           )}
            
 
@@ -104,7 +104,7 @@ export default function Header() {
             <ul className='px-2 pt-2 pb-3 space-y-1  sm:px-3'>
             <Link to='/profile'>
           {currentUser? (
-            <img  className='rounded-full  object-cover cursor-pointer
+            <img  className='rounded-full h-12 w-12 object-cover cursor-pointer
             self-center m-2' src={currentUser.avatar} width={50} height={50} alt='profile'/>
           ):(
              <li className='  text-white hover:bg-[#bb9652] hover:text-black
