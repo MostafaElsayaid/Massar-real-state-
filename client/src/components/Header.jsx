@@ -1,17 +1,33 @@
 'use client'
 import {FaSearch} from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import  { useEffect, useState } from 'react'
 import image from '../assets/LOGO.jpeg'
 import {  useSelector } from 'react-redux'
 export default function Header() {
   const {currentUser} = useSelector(state => state.user)
-    const [isClick, setisClick] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
+  const [isClick, setisClick] = useState(false);
   const toggleNavbar = () => {
     setisClick(!isClick)
   }
-  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('searchTerm', searchTerm);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
+
+  }
+  useEffect(()=>{
+    const urlParams = new URLSearchParams(location.search);
+    const searchTermfromurl = urlParams.get('searchTerm');
+    if(searchTermfromurl){
+      setSearchTerm(searchTermfromurl);
+    }
     
+  },[location.search])
   return (
     
     <header className=' shadow-md bg-[#1f100e]'>
@@ -51,9 +67,18 @@ export default function Header() {
             </div>
            
            
-         <form className='bg-slate-100 p-3 md:ml-16 rounded-lg flex items-center'> 
-            <input type='text' placeholder='      ...... ابحث عن مدينة او محافظة' className='bg-transparent focus:outline-none w-20 md:w-64 ' />
-            <FaSearch className='text-slate-500'/>
+         <form onSubmit={handleSubmit} className='bg-slate-100 p-3 md:ml-16 rounded-lg flex items-center'> 
+            <input
+              type='text'
+              placeholder='      ...... ابحث عن مدينة او محافظة'
+              className='bg-transparent focus:outline-none w-20 md:w-64 '
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <button>
+              <FaSearch className='text-slate-500'/>
+              </button>
+            
          </form>
          <ul className=' gap-4 text-white hidden md:block  justify-center items-center'>
             <div className='flex gap-10'>
